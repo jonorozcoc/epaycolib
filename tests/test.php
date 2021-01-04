@@ -15,10 +15,11 @@ class AccessSDKTest extends PHPUnit_Framework_TestCase
     protected $test = true;
     protected $client;
     protected $testCard = array(
-                    "card[number]" => '4575623182290326',
-                    "card[exp_year]" => "2017",
-                    "card[exp_month]" => "07",
-                    "card[cvc]" => "123");
+        "card[number]" => '4575623182290326',
+        "card[exp_year]" => "2017",
+        "card[exp_month]" => "07",
+        "card[cvc]" => "123"
+    );
     protected $token;
 
     /**
@@ -63,7 +64,7 @@ class AccessSDKTest extends PHPUnit_Framework_TestCase
      */
     protected function createClient()
     {
-        
+
         $token = $this->createToken();
         $client = $this->epayco->customer->create(array(
             "token_card" => $token,
@@ -78,7 +79,7 @@ class AccessSDKTest extends PHPUnit_Framework_TestCase
             "clientId" => $client->data->customerId
         );
 
-        return (Object) $array;
+        return (object) $array;
     }
 
     /* Customers */
@@ -225,7 +226,7 @@ class AccessSDKTest extends PHPUnit_Framework_TestCase
         ));
         $this->assertGreaterThanOrEqual(1, count($response));
     }
-    
+
     public function testPsebanks()
     {
         $response = $this->epayco->bank->pseBank();

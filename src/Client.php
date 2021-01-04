@@ -2,7 +2,6 @@
 
 namespace Epayco;
 
-
 use Epayco\Utils\PaycoAes;
 use Epayco\Util;
 use Epayco\Exceptions\ErrorException;
@@ -41,13 +40,13 @@ class Client extends GraphqlClient
         $cash = null,
         $safetyp = null,
         $card = null
-    )
-    {
+    ) {
 
         /**
          * Resources ip, traslate keys
          */
         $util = new Util();
+        $response = null;
 
         /**
          * Switch traslate keys array petition in secure
@@ -63,29 +62,27 @@ class Client extends GraphqlClient
             /**
              * Set heaToken bearer
              */
-         
-        if(!isset($_COOKIE[$api_key])) {
-            //  echo "Cookie named '" . $cookie_name . "' is not set!";
-              $dataAuth =$this->authentication($api_key,$private_key);
-              $auth=gettype($dataAuth);
-              $json = json_decode($dataAuth);
-              if(!is_object($json)) {
-                  throw new ErrorException("Error get bearer_token.", 106);
-              }
-              if(!$json->status)
-              {
-                  throw new ErrorException($json->message);
-              }
-              $bearer_token=$json->bearer_token;
-              $cookie_name = $api_key;
-              $cookie_value = $bearer_token;
-              setcookie($cookie_name, $cookie_value, time() + (60 * 14), "/"); 
-            //  echo "token con login".$bearer_token;
-              }else{
-                $bearer_token = $_COOKIE[$api_key];
-             //   echo "token sin login".$bearer_token;
-              } 
 
+            if (!isset($_COOKIE[$api_key])) {
+                //  echo "Cookie named '" . $cookie_name . "' is not set!";
+                $dataAuth = $this->authentication($api_key, $private_key);
+                $auth = gettype($dataAuth);
+                $json = json_decode($dataAuth);
+                if (!is_object($json)) {
+                    throw new ErrorException("Error get bearer_token.", 106);
+                }
+                if (!$json->status) {
+                    throw new ErrorException($json->message);
+                }
+                $bearer_token = $json->bearer_token;
+                $cookie_name = $api_key;
+                $cookie_value = $bearer_token;
+                setcookie($cookie_name, $cookie_value, time() + (60 * 14), "/");
+                //  echo "token con login".$bearer_token;
+            } else {
+                $bearer_token = $_COOKIE[$api_key];
+                //   echo "token sin login".$bearer_token;
+            }
         } catch (\Exception $e) {
             $data = [
                 "status" => false,
@@ -121,30 +118,24 @@ class Client extends GraphqlClient
                     $response = \Requests::get(Client::BASE_URL . $url, $headers, $options);
                 }
             } elseif ($method == "POST") {
-
                 if ($switch) {
                     $data = $util->mergeSet($data, $test, $lang, $private_key, $api_key, $cash);
 
                     $response = \Requests::post(Client::BASE_URL_SECURE . $url, $headers, json_encode($data), $options);
                 } else {
-
                     if ($card) {
-
                         $response = \Requests::post(Client::BASE_URL . $url, $headers, json_encode($data), $options);
                     } else {
-
                         $data["ip"] = isset($data["ip"]) ? $data["ip"] : getHostByName(getHostName());
                         $data["test"] = $test;
 
                         $response = \Requests::post(Client::BASE_URL . $url, $headers, json_encode($data), $options);
                     }
-
                 }
                 if ($safetyp) {
                     $headers2 = array("Accept" => "multipart/form-data");
                     $data = $util->mergeSet($data, $test, $lang, $private_key, $api_key, $cash);
                     $response = \Requests::post(Client::BASE_URL_SECURE . $url, $headers2, $data, $options);
-
                 }
             } elseif ($method == "DELETE") {
                 $response = \Requests::delete(Client::BASE_URL . $url, $headers, $options);
@@ -169,7 +160,7 @@ class Client extends GraphqlClient
                 } catch (\Exception $e) {
                     throw new ErrorException($e->getMessage(), $e->getCode());
                 }
-                throw new ErrorException($message , 103);
+                throw new ErrorException($message, 103);
             }
             if ($response->status_code == 401) {
                 throw new ErrorException('Unauthorized', 104);
@@ -185,7 +176,7 @@ class Client extends GraphqlClient
             }
             throw new ErrorException('Internal error', 102);
         } catch (\Exception $e) {
-            throw new ErrorException($e->getMessage(), $e->getCode() );
+            throw new ErrorException($e->getMessage(), $e->getCode());
         }
     }
 
@@ -194,8 +185,8 @@ class Client extends GraphqlClient
         $schema,
         $api_key,
         $type,
-        $custom_key)
-    {
+        $custom_key
+    ) {
         try {
             $queryString = "";
             $initial_key = "";
@@ -209,7 +200,8 @@ class Client extends GraphqlClient
                     $queryString = $this->queryString(
                         $selectorParams,
                         $schema,
-                        $query); //rows returned
+                        $query
+                    ); //rows returned
                     $initial_key = $schema;
                     break;
                 case "fixed":
@@ -222,7 +214,6 @@ class Client extends GraphqlClient
         } catch (\Exception $e) {
             throw new ErrorException($e->getMessage(), 301);
         }
-
     }
 
     public function authentication($api_key, $private_key)
@@ -247,4 +238,3 @@ class Client extends GraphqlClient
         return isset($response->body) ? $response->body : false;
     }
 }
-

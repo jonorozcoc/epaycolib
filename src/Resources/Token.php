@@ -17,14 +17,14 @@ class Token extends Resource
     public function create($options = null)
     {
         return $this->request(
-               "POST",
-               "/v1/tokens",
-               $api_key = $this->epayco->api_key,
-               $options,
-               $private_key = $this->epayco->private_key,
-               $test = $this->epayco->test,
-               $switch = false,
-               $lang = $this->epayco->lang
+            "POST",
+            "/v1/tokens",
+            $api_key = $this->epayco->api_key,
+            $options,
+            $private_key = $this->epayco->private_key,
+            $test = $this->epayco->test,
+            $switch = false,
+            $lang = $this->epayco->lang
         );
     }
     /**

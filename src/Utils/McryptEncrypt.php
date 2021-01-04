@@ -2,21 +2,24 @@
 
 namespace Epayco\Utils;
 
+use Epayco\Exceptions\ErrorException;
+
 /**
  * Epayco library encrypt based in AES
  */
 class McryptEncrypt
-{   
+{
 
     private $_cipher = MCRYPT_RIJNDAEL_128;
     private $_mode = MCRYPT_MODE_CBC;
     private $_key;
     private $_initializationVectorSize;
+    private $iv;
 
     public function __construct($key, $iv, $lang)
     {
         $this->_key = $key;
-        $this->iv=$iv;
+        $this->iv = $iv;
         $this->_initializationVectorSize = \mcrypt_get_iv_size($this->_cipher, $this->_mode);
 
         if (strlen($key) > ($keyMaxLength = \mcrypt_get_key_size($this->_cipher, $this->_mode))) {
@@ -27,7 +30,7 @@ class McryptEncrypt
 
     public function encrypt($data)
     {
-        $encript= \mcrypt_encrypt(
+        $encript = \mcrypt_encrypt(
             $this->_cipher,
             $this->_key,
             $this->addpadPKCS7($data, $this->_initializationVectorSize),
@@ -70,4 +73,3 @@ class McryptEncrypt
         return $aux;
     }
 }
-?>

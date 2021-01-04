@@ -16,14 +16,14 @@ class Bank extends Resource
     public function pseBank()
     {
         return $this->request(
-               "GET",
-               "/restpagos/pse/bancos.json?public_key=" . $this->epayco->api_key,
-               $api_key = $this->epayco->api_key,
-               $options = null,
-               $private_key = $this->epayco->private_key,
-               $test = $this->epayco->test,
-               $switch = true,
-               $lang = $this->epayco->lang
+            "GET",
+            "/restpagos/pse/bancos.json?public_key=" . $this->epayco->api_key,
+            $api_key = $this->epayco->api_key,
+            $options = null,
+            $private_key = $this->epayco->private_key,
+            $test = $this->epayco->test,
+            $switch = true,
+            $lang = $this->epayco->lang
         );
     }
 
@@ -35,14 +35,14 @@ class Bank extends Resource
     public function create($options = null)
     {
         return $this->request(
-               "POST",
-               "/restpagos/pagos/debitos.json",
-               $api_key = $this->epayco->api_key,
-               $options,
-               $private_key = $this->epayco->private_key,
-               $test = $this->epayco->test,
-               $switch = true,
-               $lang = $this->epayco->lang
+            "POST",
+            "/restpagos/pagos/debitos.json",
+            $api_key = $this->epayco->api_key,
+            $options,
+            $private_key = $this->epayco->private_key,
+            $test = $this->epayco->test,
+            $switch = true,
+            $lang = $this->epayco->lang
         );
     }
 
@@ -54,14 +54,14 @@ class Bank extends Resource
     public function get($uid = null)
     {
         return $this->request(
-                "GET",
-                "/restpagos/pse/transactioninfomation.json?transactionID=" . $uid . "&&public_key=" . $this->epayco->api_key,
-                $api_key = $this->epayco->api_key,
-                $uid,
-                $private_key = $this->epayco->private_key,
-                $test = $this->epayco->test,
-                $switch = true,
-                $lang = $this->epayco->lang
+            "GET",
+            "/restpagos/pse/transactioninfomation.json?transactionID=" . $uid . "&&public_key=" . $this->epayco->api_key,
+            $api_key = $this->epayco->api_key,
+            $uid,
+            $private_key = $this->epayco->private_key,
+            $test = $this->epayco->test,
+            $switch = true,
+            $lang = $this->epayco->lang
         );
     }
 }

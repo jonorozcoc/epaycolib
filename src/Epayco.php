@@ -9,7 +9,6 @@ use Epayco\Resources\Customers;
 use Epayco\Resources\Plan;
 use Epayco\Resources\Subscriptions;
 use Epayco\Resources\Token;
-
 use Epayco\Exceptions\ErrorException;
 
 /**
@@ -39,6 +38,20 @@ class Epayco
      * @var String
      */
     public $lang;
+
+    public $token;
+
+    public $customer;
+
+    public $plan;
+
+    public $subscriptions;
+
+    public $bank;
+
+    public $cash;
+
+    public $charge;
 
     /**
      * Constructor methods publics
