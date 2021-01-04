@@ -1,8 +1,8 @@
 module.exports = {
   title: "epaycolib",
   tagline: "Integra ePayco en PHP facilmente",
-  url: "https://your-docusaurus-test-site.com",
-  baseUrl: "/",
+  url: "https://jonorozcoc.github.io",
+  baseUrl: "/epaycolib/",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
   favicon: "img/favicon.ico",
