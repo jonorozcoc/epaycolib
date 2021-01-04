@@ -13,7 +13,7 @@ composer require jonorozcoc/epaycolib
 Si tu proyecto no está manejado por composer debes agregar la libreria en tu script PHP
 
 ```php
-require 'vendor/autoload.php';
+require "vendor/autoload.php";
 ```
 
 ## Inicialización de la libreria
@@ -38,4 +38,4 @@ $epayco = new Epayco(array(
 | language   | El lenguaje para la visualización de errores  | ES - EN (Según la última versión) |
 | test       | Habilitar el entorno de pruebas               |                                   |
 
-> Si no conoces cuales son tus llaves, revisa [Obtener las credenciales](keys.md)
+> Si no conoces cuales son tus llaves, revisa [Obtener las credenciales](keys.html)
