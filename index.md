@@ -15,3 +15,27 @@ Si tu proyecto no está manejado por composer debes agregar la libreria en tu sc
 ```php
 require 'vendor/autoload.php';
 ```
+
+## Inicialización de la libreria
+
+Para hacer uso de la libreria debe importar la clase principal e inicializarla con la configuración
+
+```php
+use Epayco\Epayco;
+
+$epayco = new Epayco\Epayco(array(
+    "apiKey" => "TU_LLAVE_PUBLICA",
+    "privateKey" => "TU_LLAVE_PRIVADA",
+    "language" => "ES",
+    "test" => true
+));
+```
+
+| Variable   | Descripción                                   | Notas                             |
+| ---------- | --------------------------------------------- | --------------------------------- |
+| apiKey     | La llave publica obtenida del panel de ePayco |                                   |
+| privateKey | La llave privada obtenida del panel de ePayco |                                   |
+| language   | El lenguaje para la visualización de errores  | ES - EN (Según la última versión) |
+| test       | Habilitar el entorno de pruebas               |                                   |
+
+> Si no conoces cuales son tus llaves, revisa [Obtener las credenciales](keys.md)
