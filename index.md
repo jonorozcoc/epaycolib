@@ -23,7 +23,7 @@ Para hacer uso de la libreria debe importar la clase principal e inicializarla c
 ```php
 use Epayco\Epayco;
 
-$epayco = new Epayco\Epayco(array(
+$epayco = new Epayco(array(
     "apiKey" => "TU_LLAVE_PUBLICA",
     "privateKey" => "TU_LLAVE_PRIVADA",
     "language" => "ES",
