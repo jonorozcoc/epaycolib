@@ -39,6 +39,5 @@
       "@phpstan",
       "@phpcs"
     ]
-  },
-  "version": "0.0.2"
+  }
 }
