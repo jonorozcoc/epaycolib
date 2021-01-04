@@ -32,5 +32,13 @@
       "Epayco\\": "src/"
     }
   },
+  "scripts": {
+    "phpstan": "phpstan analyse --level 8 src",
+    "phpcs": "phpcs --standard=PSR12 src",
+    "analyse": [
+      "@phpstan",
+      "@phpcs"
+    ]
+  },
   "version": "0.0.2"
 }
