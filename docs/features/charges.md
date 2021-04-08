@@ -1,4 +1,0 @@
----
-id: charges
-title: Pagos
----

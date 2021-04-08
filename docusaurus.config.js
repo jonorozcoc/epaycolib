@@ -43,7 +43,7 @@ module.exports = {
             },
             {
               label: "Características",
-              to: "docs/features/charges/",
+              to: "docs/features/payments",
             },
           ],
         },
@@ -77,6 +77,9 @@ module.exports = {
       ],
       copyright: `Copyright © ${new Date().getFullYear()} Jonatan Orozco. Hecho con Docusaurus.`,
     },
+    prism: {
+      additionalLanguages: ['php']
+    }
   },
   presets: [
     [
