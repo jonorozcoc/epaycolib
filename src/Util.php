@@ -32,26 +32,26 @@ class Util
          */
 
         if ($cash) {
-              $aes = new PaycoAes($private_key, Client::IV, $lang);
-              $adddata = array(
+            $aes = new PaycoAes($private_key, Client::IV, $lang);
+            $adddata = array(
                 "public_key" => $api_key,
                 "i" => base64_encode(Client::IV),
                 "enpruebas" => $aes->encrypt($test),
-                "lenguaje" => Client::LENGUAGE,
+                "lenguaje" => Client::LANGUAGE,
                 "p" => "",
-              );
-              return array_merge($data, $adddata);
+            );
+            return array_merge($data, $adddata);
         } else {
             $aes = new PaycoAes($private_key, Client::IV, $lang);
             $encryptData = $aes->encryptArray($data);
             $adddata = array(
-            "public_key" => $api_key,
-            "i" => base64_encode(Client::IV),
-            "enpruebas" => $aes->encrypt($test),
-            "lenguaje" => Client::LENGUAGE,
-            "p" => "",
-                );
-                return array_merge($encryptData, $adddata);
+                "public_key" => $api_key,
+                "i" => base64_encode(Client::IV),
+                "enpruebas" => $aes->encrypt($test),
+                "lenguaje" => Client::LANGUAGE,
+                "p" => "",
+            );
+            return array_merge($encryptData, $adddata);
         }
     }
 }
