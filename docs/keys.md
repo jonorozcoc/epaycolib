@@ -3,4 +3,8 @@ id: keys
 title: Credenciales de acceso
 ---
 
-This is a link to [another document.](doc3.md) This is a link to an [external page.](http://www.example.com/)
+Para obtener las credenciales de acceso debe realizar los siguientes pasos:
+
+## 1. Ingresar al sitio web de ePayco
+
+![Sitio web de epayco](/img/keys/homepage.png)
