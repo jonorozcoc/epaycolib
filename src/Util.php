@@ -8,7 +8,7 @@ class Util
 {
     public function setKeys($array)
     {
-        $aux = array();
+        $aux = [];
         $file = dirname(__FILE__) . "/Utils/key_lang.json";
         $values = json_decode(file_get_contents($file), true);
         foreach ($array as $key => $value) {
@@ -33,24 +33,24 @@ class Util
 
         if ($cash) {
             $aes = new PaycoAes($private_key, Client::IV, $lang);
-            $adddata = array(
+            $adddata = [
                 "public_key" => $api_key,
                 "i" => base64_encode(Client::IV),
                 "enpruebas" => $aes->encrypt($test),
                 "lenguaje" => Client::LANGUAGE,
                 "p" => "",
-            );
+            ];
             return array_merge($data, $adddata);
         } else {
             $aes = new PaycoAes($private_key, Client::IV, $lang);
             $encryptData = $aes->encryptArray($data);
-            $adddata = array(
+            $adddata = [
                 "public_key" => $api_key,
                 "i" => base64_encode(Client::IV),
                 "enpruebas" => $aes->encrypt($test),
                 "lenguaje" => Client::LANGUAGE,
                 "p" => "",
-            );
+            ];
             return array_merge($encryptData, $adddata);
         }
     }

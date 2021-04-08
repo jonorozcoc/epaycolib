@@ -7,16 +7,16 @@ namespace Epayco\Utils;
  */
 class OpensslEncrypt
 {
+    private $cipher = "aes-256-cbc";
 
-
-
-    private $cipher  = "aes-256-cbc";
     private $key;
+
     private $iv;
+
     public function __construct($_key, $_iv, $lang)
     {
-        $this->key  = $_key;
-        $this->iv   = $_iv;
+        $this->key = $_key;
+        $this->iv = $_iv;
     }
 
     public function encrypt($data)
@@ -58,7 +58,7 @@ class OpensslEncrypt
 
     public function encryptArray($arrdata)
     {
-        $aux = array();
+        $aux = [];
         foreach ($arrdata as $key => $value) {
             $aux[$key] = $this->encrypt($value);
         }

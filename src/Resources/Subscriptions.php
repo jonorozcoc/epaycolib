@@ -33,10 +33,9 @@ class Subscriptions extends Resource
         );
     }
 
-
     /**
      * Update subscription
-     * @param  String $id     id subscription
+     * @param  string $id     id subscription
      * @param  object $options contenten update
      * @return object
      */
@@ -64,14 +63,14 @@ class Subscriptions extends Resource
 
     /**
      * Get subscription from id
-     * @param  String $uid id subscription
+     * @param  string $uid id subscription
      * @return object
      */
     public function get($uid)
     {
         return $this->request(
             "GET",
-            "/recurring/v1/subscription/" . $uid . "/" . $this->epayco->api_key  . "/",
+            "/recurring/v1/subscription/" . $uid . "/" . $this->epayco->api_key . "/",
             $api_key = $this->epayco->api_key,
             $options = null,
             $private_key = $this->epayco->private_key,
@@ -101,7 +100,7 @@ class Subscriptions extends Resource
 
     /**
      * Cancel active subscription
-     * @param  String $uid id subscription
+     * @param  string $uid id subscription
      * @return object
      */
     public function cancel($uid)
@@ -110,9 +109,9 @@ class Subscriptions extends Resource
             "POST",
             "/recurring/v1/subscription/cancel",
             $api_key = $this->epayco->api_key,
-            $options = array(
-                    "id" => $uid
-               ),
+            $options = [
+                "id" => $uid,
+            ],
             $private_key = $this->epayco->private_key,
             $test = $this->epayco->test,
             $switch = false,

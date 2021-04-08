@@ -101,7 +101,6 @@ class Customers extends Resource
         );
     }
 
-
      /**
      * add default card
      * @return object
@@ -143,7 +142,6 @@ class Customers extends Resource
             $card = true
         );
     }
-
 
     /**
      * graphql query client epayco

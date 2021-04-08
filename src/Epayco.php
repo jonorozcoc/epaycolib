@@ -21,6 +21,7 @@ class Epayco
      * @var String
      */
     public $api_key;
+
     /**
      * Private key client
      * @var String
@@ -64,7 +65,7 @@ class Epayco
         $this->test = $options["test"] ? "TRUE" : "FALSE";
         $this->lang = $options["language"];
 
-        if (!$this->api_key && !$this->private_key && $this->test && $this->lang) {
+        if (! $this->api_key && ! $this->private_key && $this->test && $this->lang) {
             throw new ErrorException($this->lang, 100);
         }
 

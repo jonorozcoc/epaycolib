@@ -15,15 +15,15 @@ class GraphqlClient
     {
      //Inicializar parametros requeridos para wrapper
         $action = $query->action;
-        $selector = isset($query->selector) ? $query->selector : null ;
+        $selector = isset($query->selector) ? $query->selector : null;
         $selectorOr = isset($query->selectorOr) ? $query->selectorOr : null;
         $wildCard = $query->wildCard;
-        $byDates =  isset($query->byDates) ? $query->byDates : null ;
-        $pagination = isset($query->pagination) ? $query->pagination : null ;
-        $customFields = isset($query->customFields) ? $query->customFields : null ;
+        $byDates = isset($query->byDates) ? $query->byDates : null;
+        $pagination = isset($query->pagination) ? $query->pagination : null;
+        $customFields = isset($query->customFields) ? $query->customFields : null;
 
      //Comprobacion: El query tiene un action: find o findOne?
-        if (!($action === "find" || $query->action === "findOne")) {
+        if (! ($action === "find" || $query->action === "findOne")) {
             throw new ErrorException("Parameter required, please specify action: find or findOne and try again.", 102);
         }
 
@@ -41,7 +41,7 @@ class GraphqlClient
             if (gettype($wildCard) !== "string") {
                 throw new ErrorException("Parameter required, wildCard is empty or invalid please fill and try again.", 104);
             } else {
-                if (!($wildCard === "contains" || $wildCard === "startsWith")) {
+                if (! ($wildCard === "contains" || $wildCard === "startsWith")) {
                     throw  new ErrorException('Parameter invalid, please specify wildCard: "contains" or "startsWith" and try again.', 104);
                 }
             }
@@ -53,7 +53,7 @@ class GraphqlClient
                 throw  new ErrorException("Parameter required, byDates is empty or invalid please fill and try again.", 105);
             } else {
                 if (
-                    !($this->validateDateFormat($byDates["start"], 'YYYY-MM-DD')
+                    ! ($this->validateDateFormat($byDates["start"], 'YYYY-MM-DD')
                     && $this->validateDateFormat($byDates["end"], 'YYYY-MM-DD')
                     )
                 ) {
@@ -87,17 +87,18 @@ class GraphqlClient
             }
         }
     }
+
     public function sendRequest(string $query, $api_key)
     {
         $headers = [
             "Content-Type: application/json",
             "Accept" => "application/json",
             "type" => "sdk",
-            "authorization" => "Basic " . base64_encode($api_key)
+            "authorization" => "Basic " . base64_encode($api_key),
         ];
         try {
             $body = [
-                'query' => $query
+                'query' => $query,
             ];
 
             $response = \Requests::post(Client::BASE_URL . '/graphql', $headers, $body);
@@ -126,17 +127,17 @@ class GraphqlClient
         if ($selector !== null) {
             foreach ($selector as $key => $item) {
                 $options["selector"] = [
-                  "type" => $key,
-                  "value" => $item
+                    "type" => $key,
+                    "value" => $item,
                 ];
             }
-            $optionsToJson = json_encode((object)$options);
+            $optionsToJson = json_encode((object) $options);
         } elseif ($selectorOr !== null) {
             foreach ($selectorOr as $key => $SelectorItem) {
                 foreach ($SelectorItem as $key => $item) {
                     $options["selectorOr"][] = [
                         "type" => $key,
-                        "value" => $item
+                        "value" => $item,
                     ];
                 }
             }
@@ -151,9 +152,9 @@ class GraphqlClient
         $query
     ) {
         $wildCard = $query->wildCard;
-        $byDates =  isset($query->byDates) ? $query->byDates : null ;
-        $customFields = isset($query->customFields) ? $query->customFields : null ;
-        $paginationInfo = isset($query->pagination) ? $query->pagination : null ;
+        $byDates = isset($query->byDates) ? $query->byDates : null;
+        $customFields = isset($query->customFields) ? $query->customFields : null;
+        $paginationInfo = isset($query->pagination) ? $query->pagination : null;
 
         $wildCardOption = ($wildCard === null) ? "default" : $wildCard;
         $byDatesOptions = ($byDates === null) ? [] : $byDates;
@@ -161,14 +162,14 @@ class GraphqlClient
         $selectorName = ( empty($selectorParams["selectorOr"]) ) ? "selector" : "selectorOr";
         $isPagination = ($paginationInfo === null) ? false : true;
 
-        (object)$queryArgs = [
+        (object) $queryArgs = [
             "query" => $selectorParams,
             "schema" => $schema,
             "wildCardOption" => $wildCardOption,
             "byDatesOption" => $byDatesOptions,
             "fields" => $fields,
             "selectorName" => $selectorName,
-            "paginationInfo" => $paginationInfo
+            "paginationInfo" => $paginationInfo,
         ];
 
         return $this->queryTemplates($isPagination, $queryArgs);
@@ -261,8 +262,8 @@ class GraphqlClient
 
         $resolverQueryName = "paginated" . ucfirst($args["schema"]);
         $selectorName = $args["selectorName"];
-        $selectorQuery =  (count($args["query"]) > 0) ?
-            preg_replace('/"([^"]+)"\s*:\s*/', '$1:', json_encode($args["query"][$selectorName])) : json_encode([]) ;
+        $selectorQuery = (count($args["query"]) > 0) ?
+            preg_replace('/"([^"]+)"\s*:\s*/', '$1:', json_encode($args["query"][$selectorName])) : json_encode([]);
         $finalQuery = "";
         $byDatesOptions = 'byDate: {}';
         if (count($args["byDatesOption"]) > 0) {
@@ -281,7 +282,7 @@ class GraphqlClient
                         input:{
                             wildCard: "' . $args["wildCardOption"] . '"
                             ' . $byDatesOptions . '
-                            ' . $selectorName . ': ' . $selectorQuery  . '                            
+                            ' . $selectorName . ': ' . $selectorQuery . '                            
                         }
                         limit:' . $args["paginationInfo"]["limit"] . '
                         pageNumber:' . $args["paginationInfo"]["pageNumber"] . '   
@@ -317,7 +318,7 @@ class GraphqlClient
                                 start: "' . $args["byDatesOption"]["start"] . '", 
                                 end: "' . $args["byDatesOption"]["end"] . '" 
                             }
-                        ' . $selectorName . ': ' . $selectorQuery  . '
+                        ' . $selectorName . ': ' . $selectorQuery . '
                       }       
                     ) {
                       ' . $args["fields"] . '
@@ -345,21 +346,21 @@ class GraphqlClient
         $response = [];
         $isPaginatedResponse = "paginated" . ucfirst($schema);
 
-        if (!empty($data["data"][$isPaginatedResponse])) {
+        if (! empty($data["data"][$isPaginatedResponse])) {
             $response["success"] = true;
             $response["status"] = true;
             $response["totalRows"] = $data["data"][$isPaginatedResponse]["totalRows"];
-            $response["totalRowsByPage"] =  $data["data"][$isPaginatedResponse]["totalRowsByPage"];
+            $response["totalRowsByPage"] = $data["data"][$isPaginatedResponse]["totalRowsByPage"];
             $response["data"] = $data["data"][$isPaginatedResponse][$schema];
-            $response["date"]  = date("Y-m-d H:i:sP");
+            $response["date"] = date("Y-m-d H:i:sP");
             $response["type"] = 'Find ' . $schema;
             $response["object"] = $schema;
             $response["pageInfo"] = [
                 "hasNextPage" => $data["data"][$isPaginatedResponse]["pageInfo"]["hasNextPage"],
                 "actualPage" => $data["data"][$isPaginatedResponse]["pageInfo"]["actualPage"],
                 "nextPages" => $data["data"][$isPaginatedResponse]["pageInfo"]["nextPages"],
-                "previousPages" =>  $data["data"][$isPaginatedResponse]["pageInfo"]["previousPages"]
-              ];
+                "previousPages" => $data["data"][$isPaginatedResponse]["pageInfo"]["previousPages"],
+            ];
         } else {
             if (count($data["data"][$schema]) === 100) { //Objecto de respuesta para cuando la cantidad de registros solicitado supera los 100
                 $response["success"] = true;
@@ -367,7 +368,7 @@ class GraphqlClient
                 $response["requirePagination"] = true;
                 $response["requirePaginationMessage"] = 'The quantity of rows in result exceeded the max allowed (100), please configure pagination schema and try again ';
                 $response["data"] = $data["data"][$schema];
-                $response["date"]  = date("Y-m-d H:i:sP");
+                $response["date"] = date("Y-m-d H:i:sP");
                 $response["type"] = 'Find ' . $schema;
                 $response["object"] = $schema;
             } else {
@@ -375,7 +376,7 @@ class GraphqlClient
                 $response["status"] = true;
                 $response["requirePagination"] = false;
                 $response["data"] = $data["data"][$schema];
-                $response["date"]  = date("Y-m-d H:i:sP");
+                $response["date"] = date("Y-m-d H:i:sP");
                 $response["type"] = 'Find ' . $schema;
                 $response["object"] = $schema;
             }

@@ -9,11 +9,14 @@ use Epayco\Exceptions\ErrorException;
  */
 class McryptEncrypt
 {
-
     private $_cipher = MCRYPT_RIJNDAEL_128;
+
     private $_mode = MCRYPT_MODE_CBC;
+
     private $_key;
+
     private $_initializationVectorSize;
+
     private $iv;
 
     public function __construct($key, $iv, $lang)
@@ -26,7 +29,6 @@ class McryptEncrypt
             throw new ErrorException($lang, 108);
         }
     }
-
 
     public function encrypt($data)
     {
@@ -42,7 +44,7 @@ class McryptEncrypt
 
     public function decrypt($encryptedData)
     {
-        $data =  @\mcrypt_decrypt(
+        $data = @\mcrypt_decrypt(
             $this->_cipher,
             $this->_key,
             base64_decode($encryptedData),
@@ -52,24 +54,25 @@ class McryptEncrypt
         return $this->unpadPKCS7($data);
     }
 
+    public function encryptArray($arrdata)
+    {
+        $aux = [];
+        foreach ($arrdata as $key => $value) {
+            $aux[$key] = $this->encrypt($value);
+        }
+        return $aux;
+    }
+
     private function addpadPKCS7($data, $block_size)
     {
         $pad = $block_size - (strlen($data) % $block_size);
         $data .= str_repeat(chr($pad), $pad);
         return $data;
     }
+
     private function unpadPKCS7($data)
     {
         $last = substr($data, -1);
         return substr($data, 0, strlen($data) - ord($last));
-    }
-
-    public function encryptArray($arrdata)
-    {
-        $aux = array();
-        foreach ($arrdata as $key => $value) {
-            $aux[$key] = $this->encrypt($value);
-        }
-        return $aux;
     }
 }
