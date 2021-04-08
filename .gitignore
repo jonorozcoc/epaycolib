@@ -1,4 +1,7 @@
 .idea
 composer.phar
 vendor
+node_modules
+.docusaurus
+*.cache
 *.log
