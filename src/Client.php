@@ -15,7 +15,19 @@ class Client extends GraphqlClient
     const BASE_URL = "https://api.secure.payco.co";
     const BASE_URL_SECURE = "https://secure.payco.co";
     const IV = "0000000000000000";
-    const LENGUAGE = "php";
+    const LANGUAGE = "php";
+
+
+    /**
+     * Creates a new user
+     * @param String $name The user name
+     * @param String $lastname The user name
+     * @return boolean The result of creation
+     */
+    public function createUser(String $name, String $lastname)
+    {
+        // DO BL
+    }
 
     /**
      * Request api epayco
@@ -26,6 +38,7 @@ class Client extends GraphqlClient
      * @param String $private_key private key commerce
      * @param String $test type petition production or testing
      * @param Boolean $switch type api petition
+     * @param Card $card Card instance
      * @return Object
      */
     public function request(

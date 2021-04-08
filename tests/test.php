@@ -11,7 +11,7 @@ class AccessSDKTest extends PHPUnit_Framework_TestCase
     protected $epayco;
     protected $apiKey = "491d6a0b6e992cf924edd8d3d088aff1";
     protected $privateKey = "268c8e0162990cf2ce97fa7ade2eff5a";
-    protected $lenguage = "ES";
+    protected $language = "ES";
     protected $test = true;
     protected $client;
     protected $testCard = array(
@@ -30,7 +30,7 @@ class AccessSDKTest extends PHPUnit_Framework_TestCase
         $this->epayco = new Epayco(array(
             "apiKey" => $this->apiKey,
             "privateKey" => $this->privateKey,
-            "lenguage" => $this->lenguage,
+            "language" => $this->language,
             "test" => $this->test
         ));
         $this->client = new Client();
@@ -51,7 +51,7 @@ class AccessSDKTest extends PHPUnit_Framework_TestCase
             $private_key = $this->privateKey,
             $test = $this->test,
             $switch = false,
-            $lang = $this->lenguage
+            $lang = $this->language
         );
         $this->token = $response->id;
 
