@@ -31,7 +31,7 @@ https://epayco.co/docs/api/
 
 ### Dependencias
 
-    * PHP ^7.0
+    * PHP ^7.3
 
 ## Installación
 
